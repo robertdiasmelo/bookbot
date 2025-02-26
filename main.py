@@ -1,5 +1,12 @@
+import sys
+from stats import get_number_words
+
+
 def main():
-    book_path = "books/frankenstein.txt"
+    if len(sys.argv) != 2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+    book_path = sys.argv[1]
     text = get_book_text(book_path)
     num_words = get_number_words(text)
     num_characters = get_number_characters(text)
@@ -10,10 +17,6 @@ def main():
 def get_book_text(path):
     with open(path) as f:
         return f.read()
-
-
-def get_number_words(text):
-    return len(text.split())
 
 
 def get_number_characters(text):
@@ -37,7 +40,7 @@ def print_report(path, num_words, num_characters):
     
     for character_num_dict in number_characters_list:
         if character_num_dict["character"].isalpha():
-            print(f"The '{character_num_dict["character"]}' character was found {character_num_dict["num"]} times")
+            print(f"'{character_num_dict["character"]}: {character_num_dict["num"]}' ")
         else:
             continue
     print("--- End report ---")
